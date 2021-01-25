@@ -1,24 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { MouseEvent, useRef } from "react";
 
 function App() {
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  console.dir(audioRef.current);
+
+  const handlePlay = (e: MouseEvent<HTMLButtonElement>) => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
+
+  const handlePause = (e: MouseEvent<HTMLButtonElement>) => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+  };
+
+  const handlePrev = (e: MouseEvent<HTMLButtonElement>) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime--;
+    }
+  };
+
+  const handleForward = (e: MouseEvent<HTMLButtonElement>) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime++;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Audio Test</h1>
+      <audio ref={audioRef} src="/music.mp3" controls={false} />
+      <button onClick={handlePlay}>PLAY</button>
+      <br />
+      <button onClick={handlePause}>PAUSE</button>
+      <br />
+      <button onClick={handlePrev}>{"<<"}</button>
+      <br />
+      <button onClick={handleForward}>{">>"}</button>
     </div>
   );
 }
